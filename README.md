@@ -7,6 +7,7 @@ These demos contain intentionally vulnerable code.
 Do not run any of them on a machine which can be accessed by external users.
 
 ## Prerequisites
+
 1. [Git](https://git-scm.com/) - For cloning the repo
 2. [npm](https://www.npmjs.com/get-npm)
 3. [curl](https://curl.haxx.se/) - Not required for running the demo, but some instructions use it
@@ -14,11 +15,13 @@ Do not run any of them on a machine which can be accessed by external users.
 ## Installation
 
 Clone the repository:
+
 ```
 git clone https://github.com/nguyenanhung/cybersecurity-owasp-top10-demo.git
 ```
 
 Install the dependencies:
+
 ```
 npm install
 ```
@@ -28,6 +31,7 @@ npm install
 ### A1:2017 - Injection
 
 Run the Log Injection demo:
+
 ```
 node logi.js
 ```
@@ -43,6 +47,7 @@ You'll see two log in messages in the application's console.
 ### A2:2017 - Broken Authentication
 
 Run the login demo:
+
 ```
 node logi.js
 ```
@@ -53,6 +58,7 @@ and password will be accepted by the system. A proper system should have real us
 ### A3:2017 Sensitive data exposure
 
 Run the login demo:
+
 ```
 node logi.js
 ```
@@ -63,11 +69,13 @@ to log in, and the password will be presented in plain text in the application's
 ### A4:2017 XML External Entities (XXE)
 
 Run the XXE demo:
+
 ```
 node xxe.js
 ```
 
 Send a payload with the following form:
+
 ```
 curl -d '<!DOCTYPE foo [<!ENTITY xxe SYSTEM "/full/path/to/cybersecurity-owasp-top10-demo/secret.txt">]><name>&xxe;</name>' http://localhost:3000/xxe
 ```
@@ -77,6 +85,7 @@ And you should get back the **contents** of the [secret.txt](secret.txt) file, i
 ### A5:2017 Broken Access Control
 
 Run the session demo:
+
 ```
 node session.js
 ```
@@ -94,13 +103,16 @@ In other words, this demo implements **authentication**, but does not implement 
 ### A6:2017 Security Misconfiguration
 
 There are several security misconfigurations in these demos. A few obvious ones include:
+
 - All the demos serve HTTP and not HTTPS
 - [xxe.js](xxe.js) sets `noent: true` when creating the libxmljs parser, thus making the demo vulnerable to XXE
-- [session.js](session.js) uses Express Session, but uses the default configuration (e.g., it doesn't set the `secure` or `maxAge` properties)
+- [session.js](session.js) uses Express Session, but uses the default configuration (e.g., it doesn't set the `secure`
+  or `maxAge` properties)
 
 ### A7:2017 Cross-Site Scripting (XSS)
 
 Run the XSS demo:
+
 ```
 node xss.js
 ```
@@ -109,6 +121,7 @@ If you use your browser to navigate to http://localhost:3000/xss, you'll see a c
 opinion and view previous comments
 
 Send a payload of the following form:
+
 ```
 curl -X POST -d 'comment=<script>window.location.replace("https://github.com/nguyenanhung/cybersecurity-owasp-top10-demo")</script>' http://localhost:3000/xss
 ```
@@ -118,11 +131,13 @@ The next time you navigate to http://localhost:3000/xss, you'll be redirected to
 ### A8:2017 Insecure Deserialization
 
 Run the keys demo:
+
 ```
 node keys.js
 ```
 
 Send a payload containing a function definition followed by a `()`:
+
 ```
 curl -X POST -H "Content-Type: text/plain" -d '{"key": "_$$ND_FUNC$$_function (){ console.log(\"unserialized!\"); }()"}' http://localhost:3000/keys
 ```
@@ -133,6 +148,7 @@ executed. Of course, you could use more malicious code than `console.log`.
 ### A9:2017 Using Components with Known Vulnerabilities
 
 Run an audit:
+
 ```
 npm audit
 ```
@@ -142,6 +158,7 @@ You will see the vulnerable packages this project depends on.
 ### A10:2017 Insufficient Logging & Monitoring
 
 Run the session demo:
+
 ```
 node session.js
 ```
