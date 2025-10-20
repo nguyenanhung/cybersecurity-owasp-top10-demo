@@ -106,7 +106,7 @@ node xss.js
 ```
 
 If you use your browser to navigate to http://localhost:3000/xss, you'll see a comments form where you could add your
-opinion of DevConf.us and view previous comments
+opinion and view previous comments
 
 Send a payload of the following form:
 ```
